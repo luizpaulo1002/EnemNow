@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENEM NOW</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>Enem Now</h1>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem;">Planejador ENEM 2026</p>
+            </div>
+            <div class="countdown">
+                <div class="countdown-value" id="daysLeft">--</div>
+                <div class="countdown-label">Dias Restantes</div>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Sidebar / Config -->
+            <div class="glass-panel">
+                <h3 style="margin-bottom: 1.5rem; font-weight: 600;">Configurações</h3>
+
+                <div class="config-group">
+                    <label>Data de Início</label>
+                    <input type="date" id="startDate" class="glass-input">
+                </div>
+
+                <div class="config-group">
+                    <label>Foco por Carreira</label>
+                    <select id="careerFocus" class="glass-select">
+                        <option value="geral">Geral (Equilibrado)</option>
+                        <option value="exatas">Engenharia / Exatas</option>
+                        <option value="humanas">Direito / Humanas</option>
+                        <option value="saude">Medicina / Saúde</option>
+                    </select>
+                </div>
+
+                <div class="stats-box">
+                    <div style="margin-bottom: 1rem;">
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Meta Sugerida</span>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: #fff;" id="paceDisplay">--</div>
+                    </div>
+                </div>
+
+                <div class="pace-warning" id="paceWarning">
+                    ⚠️ Atenção: Menos de 180 dias restantes. Você precisará de um ritmo intensivo para cobrir todos os
+                    tópicos.
+                </div>
+
+                <!-- Legenda de Checklist -->
+                <div class="legend-box">
+                    <h4 style="margin-bottom: 1rem; font-weight: 600;">Legenda de Avaliação</h4>
+
+                    <div class="legend-item">
+                        <div class="legend-badge">A/L</div>
+                        <div class="legend-text"><b>Aula ou Leitura:</b> Seu primeiro contato com a teoria do conteúdo.
+                        </div>
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-badge">R</div>
+                        <div class="legend-text"><b>Resumo:</b> Produção material ativo (mapa mental, fichamento).</div>
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-badge">E</div>
+                        <div class="legend-text"><b>Exercícios:</b> Prática principal e resolução de questões de provas
+                            anteriores.</div>
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-badge">R1</div>
+                        <div class="legend-text"><b>Revisão 7 dias:</b> Primeira revisão para quebrar a curva de
+                            esquecimento inicial.</div>
+                    </div>
+
+                    <div class="legend-item">
+                        <div class="legend-badge">R2</div>
+                        <div class="legend-text"><b>Revisão 30 dias:</b> Revisão mais longa pra consolidação de longo
+                            prazo.</div>
+                    </div>
+                </div>
+
+                <!-- Backup Data -->
+                <div class="legend-box">
+                    <h4 style="margin-bottom: 0.5rem; font-weight: 600;">Sincronização & Backup</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.8rem;">Gere um arquivo com seu progresso e
+                        importe em outro dispositivo.</p>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" id="btnExport">Exportar JS</button>
+                        <button class="btn btn-primary" id="btnImport">Importar</button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Panel -->
+            <div>
+                <div class="glass-panel progress-container">
+                    <div class="progress-header">
+                        <span style="font-weight: 600;">Progresso Geral</span>
+                        <span id="globalProgressText" style="color: var(--accent); font-weight: 700;">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="globalProgressBar"></div>
+                    </div>
+                </div>
+
+                <div class="subjects-container" id="subjectsContainer">
+                    <!-- Gerado via JS -->
+                </div>
+            </div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-secondary); font-size: 0.9rem;">
+            <p>Feito por <strong>Luiz Paulo</strong> | GitHub: <a href="https://github.com/Luizpaulo1002" target="_blank" style="color: var(--accent); text-decoration: none;">Luizpaulo1002</a></p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Distribuído sob a Licença MIT</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
