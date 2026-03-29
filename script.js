@@ -146,6 +146,18 @@ function saveState() {
 // Render UI
 function renderSubjects() {
     const container = document.getElementById('subjectsContainer');
+    
+    // Preservar o estado de quais cards estão abertos antes de re-renderizar
+    const openSubjects = [];
+    container.querySelectorAll('.subject-card').forEach(card => {
+        const header = card.querySelector('.subject-header');
+        const list = card.querySelector('.topic-list');
+        if (list && list.classList.contains('active')) {
+            const subjName = header.querySelector('h2').innerText;
+            openSubjects.push(subjName);
+        }
+    });
+
     container.innerHTML = '';
 
     const highlights = getHighlights(state.careerFocus);
@@ -179,6 +191,8 @@ function renderSubjects() {
             `;
         });
 
+        const isOpen = openSubjects.includes(subj);
+
         card.innerHTML = `
             <div class="subject-header" onclick="toggleAccordion(this)">
                 <div class="subject-title">
@@ -188,10 +202,10 @@ function renderSubjects() {
                 </div>
                 <div style="display: flex; align-items: center; gap: 1rem;">
                     <span style="font-size: 0.9rem; color: var(--text-secondary);">${subjProgress}% concluído</span>
-                    <span style="font-size: 1.2rem; transition: transform 0.3s;" class="chevron">▼</span>
+                    <span style="font-size: 1.2rem; transition: transform 0.3s; transform: ${isOpen ? 'rotate(180deg)' : 'rotate(0deg)'};" class="chevron">▼</span>
                 </div>
             </div>
-            <div class="topic-list">
+            <div class="topic-list ${isOpen ? 'active' : ''}">
                 ${topicsHTML}
             </div>
         `;
