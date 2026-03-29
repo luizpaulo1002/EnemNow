@@ -2,27 +2,85 @@
 const db = {
     "Matemática": {
         color: "var(--color-math)",
-        topics: ["Conjuntos e Operações Básicas", "Proporcionalidade", "Funções", "Geometria Plana", "Geometria Espacial", "Estatística", "Geometria Analítica", "Probabilidade"]
+        topics: [
+            "Conjuntos e Operações Básicas",
+            "Razão, Proporção e Porcentagem",
+            "Matemática Financeira",
+            "Progressões (PA/PG)",
+            "Funções (Afim, Quadrática, Exponencial e Logarítmica)",
+            "Trigonometria",
+            "Geometria Plana",
+            "Geometria Espacial",
+            "Geometria Analítica",
+            "Estatística",
+            "Probabilidade"
+        ]
     },
     "Física": {
         color: "var(--color-phys)",
-        topics: ["Fundamentos", "Cinemática", "Dinâmica", "Termologia", "Óptica", "Eletromagnetismo"]
+        topics: [
+            "Cinemática",
+            "Dinâmica",
+            "Energia, Trabalho e Potência",
+            "Gravitação Universal",
+            "Hidrostática",
+            "Termologia e Termodinâmica",
+            "Ondulatória",
+            "Óptica",
+            "Eletromagnetismo"
+        ]
     },
     "Química": {
         color: "var(--color-chem)",
-        topics: ["Matéria", "Atomística", "Ligações", "Estequiometria", "Orgânica", "Ambiental"]
+        topics: [
+            "Propriedades da Matéria",
+            "Atomística",
+            "Ligações Químicas",
+            "Estequiometria",
+            "Termoquímica",
+            "Cinética e Equilíbrio Químico",
+            "Eletroquímica",
+            "Radioatividade",
+            "Química Orgânica",
+            "Química Ambiental"
+        ]
     },
     "Biologia": {
         color: "var(--color-bio)",
-        topics: ["Citologia", "Bioquímica", "Genética", "Botânica", "Zoologia", "Ecologia"]
+        topics: [
+            "Origem da Vida e Evolução",
+            "Bioquímica e Citologia",
+            "Virologia e Bacteriologia",
+            "Doenças e Saúde Pública",
+            "Genética",
+            "Botânica",
+            "Zoologia",
+            "Ecologia"
+        ]
     },
     "Humanas": {
         color: "var(--color-hum)",
-        topics: ["Mesopotâmia", "Grécia/Roma", "Idade Média", "Brasil Colônia/Império/República", "Climatologia", "Geopolítica"]
+        topics: [
+            "História Antiga e Medieval",
+            "História Moderna e Contemporânea",
+            "Guerras Mundiais e Guerra Fria",
+            "História do Brasil (Colônia, Império e República)",
+            "Geografia Física (Clima, Biomas e Cartografia)",
+            "Geopolítica e Globalização",
+            "Filosofia",
+            "Sociologia"
+        ]
     },
     "Linguagens": {
         color: "var(--color-lang)",
-        topics: ["Gramática", "Escolas Literárias (Quinhentismo ao Contemporâneo)", "Técnicas de Interpretação"]
+        topics: [
+            "Gramática",
+            "Gêneros Textuais e Interpretação",
+            "Escolas Literárias",
+            "Artes",
+            "Língua Estrangeira (Inglês/Espanhol)",
+            "Redação"
+        ]
     }
 };
 
@@ -42,6 +100,33 @@ function loadState() {
     const saved = localStorage.getItem('enem2026_planner');
     if (saved) {
         state = JSON.parse(saved);
+        
+        // Ensure state is updated with any new structural changes from db
+        for (const subj in db) {
+            if (!state.progress[subj]) state.progress[subj] = {};
+            
+            // Add missing topics
+            db[subj].topics.forEach(topic => {
+                if (!state.progress[subj][topic]) {
+                    state.progress[subj][topic] = { 'A/L': false, 'R': false, 'E': false, 'R1': false, 'R2': false };
+                }
+            });
+            
+            // Remove old topics that are no longer in db
+            for (const topic in state.progress[subj]) {
+                if (!db[subj].topics.includes(topic)) {
+                    delete state.progress[subj][topic];
+                }
+            }
+        }
+        
+        // Remove subjects that are no longer in db
+        for (const subj in state.progress) {
+            if (!db[subj]) {
+                delete state.progress[subj];
+            }
+        }
+        saveState();
     } else {
         // Initialize progress structure
         for (const subj in db) {
