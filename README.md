@@ -1,7 +1,9 @@
 # EnemNow - Planejador ENEM 2026
 
+![EnemNow Dashboard](IMGs/enemnow1.PNG)
+
 ## Sobre o Projeto
-O Planejador Dinâmico para o ENEM 2026 é uma aplicação web feita com tecnologias nativas (HTML, CSS e JavaScript), projetada para auxiliar estudantes a organizarem sua rotina de estudos de forma inteligente e adaptável. Ao invés de depender de um cronograma engessado, a aplicação calcula o ritmo ideal de estudos cruzando o total de tópicos pendentes com a quantidade de dias restantes até o exame oficial.
+O Planejador para o ENEM 2026 é uma aplicação web feita com tecnologias nativas (HTML, CSS e JavaScript), projetada para auxiliar estudantes a organizarem sua rotina de estudos de forma inteligente e adaptável. Ao invés de depender de um cronograma engessado, a aplicação calcula o ritmo ideal de estudos cruzando o total de tópicos pendentes com a quantidade de dias restantes até o exame oficial.
 
 ## Principais Funcionalidades
 * **Contagem Regressiva e Dashboard Integrado:** O painel principal fornece visão limpa e instantânea do andamento das tarefas, progresso por matéria e quantos dias faltam para a prova do ENEM.
