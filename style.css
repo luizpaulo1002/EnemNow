@@ -8,7 +8,7 @@
     --accent: #6366f1;
     --accent-glow: rgba(99, 102, 241, 0.4);
 
-    /* Discipline Colors */
+    /* Cores das Matérias */
     --color-math: #3b82f6;
     --color-phys: #06b6d4;
     --color-chem: #10b981;
@@ -83,7 +83,7 @@ header {
     gap: 2rem;
 }
 
-/* Glass Panel */
+/* Painel de "Vidro" */
 .glass-panel {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -93,7 +93,7 @@ header {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-/* Config Section */
+/* Seção de Configurações */
 .config-group {
     margin-bottom: 1.5rem;
 }
@@ -146,7 +146,7 @@ header {
     display: none;
 }
 
-/* Progress Overall */
+/* Progresso Geral */
 .progress-container {
     margin-bottom: 2rem;
 }
@@ -174,7 +174,7 @@ header {
     box-shadow: 0 0 10px var(--accent-glow);
 }
 
-/* Subjects Grid */
+/* Grade de Matérias */
 .subjects-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -219,7 +219,7 @@ header {
     border-radius: 50%;
 }
 
-/* Topic List */
+/* Lista de Tópicos */
 .topic-list {
     display: none;
     padding: 0 1.5rem 1.5rem;
@@ -292,7 +292,7 @@ header {
     font-size: 14px;
 }
 
-/* Export / Import Buttons */
+/* Botões de Exportação / Importação */
 .btn-group {
     display: flex;
     gap: 1rem;
@@ -330,7 +330,7 @@ header {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Legend */
+/* Legenda */
 .legend-box {
     margin-top: 2rem;
     padding-top: 1.5rem;
@@ -359,6 +359,7 @@ header {
 .legend-text {
     color: var(--text-secondary);
 }
+
 .legend-text b {
     color: var(--text-primary);
 }

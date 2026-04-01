@@ -1,4 +1,4 @@
-// Database
+// Banco de Dados (em memória)
 const db = {
     "Matemática": {
         color: "var(--color-math)",
@@ -86,7 +86,7 @@ const db = {
 
 const ENEM_DATE = new Date('2026-11-01');
 
-// Initial State
+// Estado Inicial
 let state = {
     startDate: new Date().toISOString().split('T')[0],
     careerFocus: 'geral',
@@ -95,32 +95,32 @@ let state = {
 
 const taskTypes = ['A/L', 'R', 'E', 'R1', 'R2'];
 
-// Load or Init State
+// Carregar ou Inicializar Estado
 function loadState() {
     const saved = localStorage.getItem('enem2026_planner');
     if (saved) {
         state = JSON.parse(saved);
-        
-        // Ensure state is updated with any new structural changes from db
+
+        // Garante que o estado seja atualizado com possíveis novas mudanças estruturais do banco de dados
         for (const subj in db) {
             if (!state.progress[subj]) state.progress[subj] = {};
-            
-            // Add missing topics
+
+            // Adiciona tópicos ausentes
             db[subj].topics.forEach(topic => {
                 if (!state.progress[subj][topic]) {
                     state.progress[subj][topic] = { 'A/L': false, 'R': false, 'E': false, 'R1': false, 'R2': false };
                 }
             });
-            
-            // Remove old topics that are no longer in db
+
+            // Remove tópicos antigos que não estão mais no banco de dados
             for (const topic in state.progress[subj]) {
                 if (!db[subj].topics.includes(topic)) {
                     delete state.progress[subj][topic];
                 }
             }
         }
-        
-        // Remove subjects that are no longer in db
+
+        // Remove matérias que não estão mais no banco de dados
         for (const subj in state.progress) {
             if (!db[subj]) {
                 delete state.progress[subj];
@@ -128,7 +128,7 @@ function loadState() {
         }
         saveState();
     } else {
-        // Initialize progress structure
+        // Inicializa a estrutura de progresso
         for (const subj in db) {
             state.progress[subj] = {};
             db[subj].topics.forEach(topic => {
@@ -143,10 +143,10 @@ function saveState() {
     localStorage.setItem('enem2026_planner', JSON.stringify(state));
 }
 
-// Render UI
+// Renderizar a Interface
 function renderSubjects() {
     const container = document.getElementById('subjectsContainer');
-    
+
     // Preservar o estado de quais cards estão abertos antes de re-renderizar
     const openSubjects = [];
     container.querySelectorAll('.subject-card').forEach(card => {
@@ -213,7 +213,7 @@ function renderSubjects() {
     }
 }
 
-// Logic Functions
+// Funções Lógicas
 function getHighlights(focus) {
     if (focus === 'exatas') return ['Matemática', 'Física'];
     if (focus === 'humanas') return ['Humanas', 'Linguagens'];
@@ -253,11 +253,11 @@ function calculateSubjectProgress(subj) {
 }
 
 function updateDashboard() {
-    // Update Inputs
+    // Atualiza os Inputs
     document.getElementById('startDate').value = state.startDate;
     document.getElementById('careerFocus').value = state.careerFocus;
 
-    // Calculate Dates and Pace
+    // Calcula Datas e Ritmo
     const start = new Date(state.startDate);
     const today = new Date();
     const calcDate = start > today ? start : today;
@@ -270,7 +270,7 @@ function updateDashboard() {
     const warningParams = document.getElementById('paceWarning');
     warningParams.style.display = (daysLeft > 0 && daysLeft < 180) ? 'block' : 'none';
 
-    // Global Progress
+    // Progresso Global
     let total = 0, comp = 0;
     let topicsTotal = 0, topicsComp = 0;
 
@@ -294,7 +294,7 @@ function updateDashboard() {
     document.getElementById('globalProgressBar').style.width = pbVal + '%';
     document.getElementById('globalProgressText').textContent = pbVal + '%';
 
-    // Pace calculation
+    // Cálculo de Ritmo
     const topicsLeft = topicsTotal - topicsComp;
     const weeksLeft = daysLeft / 7;
 
@@ -305,11 +305,11 @@ function updateDashboard() {
         document.getElementById('paceDisplay').textContent = `${pacePerWeek} tópicos / semana`;
     }
 
-    // Render Subjects
+    // Renderiza as Matérias
     renderSubjects();
 }
 
-// Export / Import Logic
+// Lógica de Exportação / Importação
 function exportData() {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
     const downloadAnchorNode = document.createElement('a');
@@ -341,10 +341,10 @@ function importData(event) {
         }
     };
     reader.readAsText(file);
-    event.target.value = ''; // Reset input
+    event.target.value = ''; // Reseta o input
 }
 
-// Event Listeners
+// Monitores de Eventos
 document.getElementById('startDate').addEventListener('change', (e) => {
     state.startDate = e.target.value;
     saveState();
@@ -363,6 +363,6 @@ document.getElementById('btnImport').addEventListener('click', () => {
 });
 document.getElementById('importFile').addEventListener('change', importData);
 
-// Init
+// Inicialização
 loadState();
 updateDashboard();
